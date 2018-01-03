@@ -16,6 +16,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        
+        let rootVC = window!.rootViewController as! ConvertViewController
+        
+        CurrencyValuesController.shared.getCurrencyValues { (success) in
+            if success {
+                rootVC.currencyValues = CurrencyValuesController.shared.currencyValues
+            } else {
+                // Some problem
+            }
+        }
+        
+        
         return true
     }
 
