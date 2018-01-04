@@ -13,6 +13,7 @@ class CurrencyValuesController {
     static let shared = CurrencyValuesController()
     
     var currencyValues: CurrencyValues?
+    var currenciesDictionary: [String: String]?
     
     let baseURL = URL(string: "https://openexchangerates.org/api/")
     let apiKey = "cbf0257f1574490fa48b1f71cc4741e3"
@@ -41,6 +42,8 @@ class CurrencyValuesController {
             
             if let error = error {
                 print("Error: \(error)")
+                completion(false)
+                return
             }
             
             let decoder = JSONDecoder()
@@ -52,6 +55,40 @@ class CurrencyValuesController {
             self.currencyValues = currencyValuesDictionary
             
             completion(true)
+        }
+        dataTask.resume()
+    }
+    
+    // function to get currencies
+    func getCurrencies(completion: @escaping (Bool) -> Void) {
+        
+        // URL
+        guard let url = baseURL?.appendingPathComponent("currencies.json") else { completion(false); return }
+        
+        // request
+        var request = URLRequest(url: url)
+        request.httpMethod = "GET"
+        request.httpBody = nil
+        
+        // data task
+        let dataTask = URLSession.shared.dataTask(with: request) { (data, _, error) in
+            
+            if let error = error {
+                print("Error: \(error)")
+                completion(false)
+                return
+            }
+            
+            let decoder = JSONDecoder()
+            
+            guard let data = data else { completion(false); return }
+            
+            guard let currenciesDictionary = try? decoder.decode([String: String].self, from: data) else { completion(false); return }
+            
+            self.currenciesDictionary = currenciesDictionary
+            
+            completion(true)
+            
         }
         dataTask.resume()
     }

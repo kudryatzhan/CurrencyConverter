@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Number Formatter
 let numberFormatter: NumberFormatter = {
     let formatter = NumberFormatter()
     formatter.numberStyle = .decimal

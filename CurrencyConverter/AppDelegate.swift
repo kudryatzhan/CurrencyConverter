@@ -27,6 +27,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         }
         
+        CurrencyValuesController.shared.getCurrencies { (success) in
+            if success {
+                rootVC.currenciesDictionary = CurrencyValuesController.shared.currenciesDictionary
+            } else {
+                // Some problem
+            }
+        }
+        
         
         return true
     }
