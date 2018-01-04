@@ -10,40 +10,153 @@ import UIKit
 
 class ConvertViewController: UIViewController, UITextFieldDelegate {
     
+    // MARK: - Properties of views programmatically
+    var baseCurrencyButton = UIButton(type: .system)
+    var baseCurrencyTextField = UITextField()
+    var baseStackView = UIStackView()
+    var convertCurrencyButton = UIButton(type: .system)
+    var convertCurrencyTextField = UITextField()
+    var convertStackView = UIStackView()
+    var overallStackView = UIStackView()
+    var currenciesPickerView = UIPickerView()
     
-    
-    
-    // IBOutlets
-    @IBOutlet weak var baseCurrencyTextField: UITextField!
-    @IBOutlet weak var convertedCurrencyTextField: UITextField!
-    
-    @IBOutlet weak var baseSignButton: UIButton!
-    @IBOutlet weak var convertedSignButton: UIButton!
-    
-    @IBOutlet weak var currencyPickerView: UIPickerView!
     
     // MARK: - Properties
-    var currencyValues: CurrencyValues?
+    var currencyValues: CurrencyValues? {
+        didSet {
+            DispatchQueue.main.async {
+                self.viewDidLoad()
+            }
+            
+        }
+    }
     var currenciesDictionary: [String: String]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
+        view.backgroundColor = #colorLiteral(red: 0.3568627451, green: 0.6235294118, blue: 0.7960784314, alpha: 1)
+        
+        currenciesPickerView.dataSource = self
+        currenciesPickerView.delegate = self
+        baseCurrencyTextField.delegate = self
+        convertCurrencyTextField.delegate = self
+        
+        
+        setupViews()
+        setupConstraints()
+    }
+    
+    // MARK: - Set up views and constraints methods
+    func setupViews() {
+        
+        // base currency button
+        baseCurrencyButton.setTitle("$", for: .normal)
+        baseCurrencyButton.titleLabel?.font = UIFont.systemFont(ofSize: 53.0)
+        baseCurrencyButton.setTitleColor(.white, for: .normal)
+        baseCurrencyButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        
+        // base currency textField
+        baseCurrencyTextField.font = UIFont.systemFont(ofSize: 70.0)
+        baseCurrencyTextField.textAlignment = .right
+        baseCurrencyTextField.adjustsFontSizeToFitWidth = true
+        baseCurrencyTextField.minimumFontSize = 17.0
+        baseCurrencyTextField.borderStyle = .roundedRect
+        
+        baseCurrencyTextField.autocapitalizationType = .none
+        baseCurrencyTextField.autocorrectionType = .no
+        baseCurrencyTextField.spellCheckingType = .no
+        baseCurrencyTextField.keyboardType = .decimalPad
+        
+        baseCurrencyTextField.addTarget(self, action: #selector(baseCurrTextFieldEditingChanged), for: .editingChanged)
+        
+        // base stack view
+        baseStackView.addArrangedSubview(baseCurrencyButton)
+        baseStackView.addArrangedSubview(baseCurrencyTextField)
+        baseStackView.axis = .horizontal
+        baseStackView.spacing = 10.0
+        
+        // convert currency button
+        convertCurrencyButton.setImage(UIImage(named: "exchange"), for: .normal)
+        convertCurrencyButton.tintColor = .white
+        convertCurrencyButton.setContentHuggingPriority(.defaultHigh, for: .horizontal)
+        
+        convertCurrencyButton.addTarget(self, action: #selector(convertCurrencyButtonTapped), for: .touchUpInside)
+        
+        // convert currency text field
+        convertCurrencyTextField.font = UIFont.systemFont(ofSize: 70.0)
+        convertCurrencyTextField.textAlignment = .right
+        convertCurrencyTextField.adjustsFontSizeToFitWidth = true
+        convertCurrencyTextField.minimumFontSize = 17.0
+        convertCurrencyTextField.borderStyle = .roundedRect
+        
+        convertCurrencyTextField.autocapitalizationType = .none
+        convertCurrencyTextField.autocorrectionType = .no
+        convertCurrencyTextField.spellCheckingType = .no
+        convertCurrencyTextField.keyboardType = .decimalPad
+        
+        // convert stack view
+        convertStackView.addArrangedSubview(convertCurrencyButton)
+        convertStackView.addArrangedSubview(convertCurrencyTextField)
+        convertStackView.axis = .horizontal
+        convertStackView.spacing = 10.0
+        
+        // overall stack view
+        overallStackView.addArrangedSubview(baseStackView)
+        overallStackView.addArrangedSubview(convertStackView)
+        overallStackView.axis = .vertical
+        overallStackView.distribution = .fillEqually
+        overallStackView.spacing = 70.0
+        
+        // currencies picker view
+        currenciesPickerView.isHidden = true
+        currenciesPickerView.backgroundColor = UIColor.white.withAlphaComponent(0.25)
+        
+        // tap gesture recognizer
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(backgroundWasTapped))
+        
+        
+        view.addSubview(overallStackView)
+        view.addSubview(currenciesPickerView)
+        view.addGestureRecognizer(tapGestureRecognizer)
         
     }
     
+    func setupConstraints() {
+        
+        // stack view
+        overallStackView.translatesAutoresizingMaskIntoConstraints = false
+        
+        overallStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        overallStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 14.0).isActive = true
+        overallStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -14.0).isActive = true
+        
+        // picker view
+        currenciesPickerView.translatesAutoresizingMaskIntoConstraints = false
+        
+        NSLayoutConstraint.activate([
+            self.currenciesPickerView.leadingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leadingAnchor),
+            self.currenciesPickerView.trailingAnchor.constraint(equalTo: view.safeAreaLayoutGuide.trailingAnchor),
+            self.currenciesPickerView.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor)
+            ])
+    }
     
-    // IBActions
-    @IBAction func baseCurrTextFieldEditingChanged(_ sender: UITextField) {
+    
+    // Actions
+    @objc func baseCurrTextFieldEditingChanged() {
         convert()
     }
     
-    @IBAction func convertCurrencyButtonTapped(_ sender: UIButton) {
-        currencyPickerView.isHidden = false
+    @objc func convertCurrencyButtonTapped() {
+        currenciesPickerView.isHidden = false
         baseCurrencyTextField.resignFirstResponder()
     }
     
+    @objc func backgroundWasTapped() {
+        baseCurrencyTextField.resignFirstResponder()
+        convertCurrencyTextField.resignFirstResponder()
+        currenciesPickerView.isHidden = true
+    }
     
     // MARK: - UITextFieldDelegate
     
@@ -65,24 +178,18 @@ class ConvertViewController: UIViewController, UITextFieldDelegate {
         return true
     }
     
-    @IBAction func backgroundWasTapped(_ sender: UITapGestureRecognizer) {
-        baseCurrencyTextField.resignFirstResponder()
-        convertedCurrencyTextField.resignFirstResponder()
-        currencyPickerView.isHidden = true
-    }
-    
     // MARK: - Methods
     func convert() {
         if let currencyValues = currencyValues,
             let baseCurrencyString = baseCurrencyTextField.text,
             let baseCurrencyValue = Double(baseCurrencyString),
-            let convertedText = convertedSignButton.currentTitle,
+            let convertedText = convertCurrencyButton.currentTitle,
             let convertCurrencyRate = currencyValues.rates[convertedText] {
             
             let resultAsNSNumber = NSNumber(value: baseCurrencyValue * convertCurrencyRate)
-            convertedCurrencyTextField.text = "\(numberFormatter.string(from: resultAsNSNumber) ?? "")"
+            convertCurrencyTextField.text = "\(numberFormatter.string(from: resultAsNSNumber) ?? "")"
         } else {
-            convertedCurrencyTextField.text = ""
+            convertCurrencyTextField.text = ""
         }
     }
 }
@@ -116,7 +223,7 @@ extension ConvertViewController: UIPickerViewDataSource, UIPickerViewDelegate {
                 return dict1.value < dict2.value
             })
             
-            convertedSignButton.setTitle(sorted[row].key, for: .normal)
+            convertCurrencyButton.setTitle(sorted[row].key, for: .normal)
             convert()
         }
     }

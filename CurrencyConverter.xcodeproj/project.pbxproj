@@ -9,27 +9,23 @@
 /* Begin PBXBuildFile section */
 		B23126CB1FFC44AC0056AE4C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23126CA1FFC44AC0056AE4C /* AppDelegate.swift */; };
 		B23126CD1FFC44AC0056AE4C /* ConvertViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23126CC1FFC44AC0056AE4C /* ConvertViewController.swift */; };
-		B23126D01FFC44AC0056AE4C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B23126CE1FFC44AC0056AE4C /* Main.storyboard */; };
 		B23126D21FFC44AC0056AE4C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B23126D11FFC44AC0056AE4C /* Assets.xcassets */; };
 		B23126D51FFC44AC0056AE4C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B23126D31FFC44AC0056AE4C /* LaunchScreen.storyboard */; };
 		B23126DD1FFC4B910056AE4C /* CurrencyValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23126DC1FFC4B910056AE4C /* CurrencyValues.swift */; };
 		B23126E11FFC4D2A0056AE4C /* CurrencyValuesController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23126E01FFC4D2A0056AE4C /* CurrencyValuesController.swift */; };
 		B23127011FFD7B5A0056AE4C /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = B23127001FFD7B5A0056AE4C /* Helpers.swift */; };
-		B2A829AD1FFEA1D00092C27A /* ViewsForEdmundinho.swift in Sources */ = {isa = PBXBuildFile; fileRef = B2A829AC1FFEA1D00092C27A /* ViewsForEdmundinho.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		B23126C71FFC44AC0056AE4C /* CurrencyConverter.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CurrencyConverter.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B23126CA1FFC44AC0056AE4C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B23126CC1FFC44AC0056AE4C /* ConvertViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConvertViewController.swift; sourceTree = "<group>"; };
-		B23126CF1FFC44AC0056AE4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		B23126D11FFC44AC0056AE4C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		B23126D41FFC44AC0056AE4C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B23126D61FFC44AC0056AE4C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B23126DC1FFC4B910056AE4C /* CurrencyValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyValues.swift; sourceTree = "<group>"; };
 		B23126E01FFC4D2A0056AE4C /* CurrencyValuesController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrencyValuesController.swift; sourceTree = "<group>"; };
 		B23127001FFD7B5A0056AE4C /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
-		B2A829AC1FFEA1D00092C27A /* ViewsForEdmundinho.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewsForEdmundinho.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,7 +59,6 @@
 			isa = PBXGroup;
 			children = (
 				B23126CA1FFC44AC0056AE4C /* AppDelegate.swift */,
-				B23126CE1FFC44AC0056AE4C /* Main.storyboard */,
 				B23126D11FFC44AC0056AE4C /* Assets.xcassets */,
 				B23126D31FFC44AC0056AE4C /* LaunchScreen.storyboard */,
 				B23126D61FFC44AC0056AE4C /* Info.plist */,
@@ -87,7 +82,6 @@
 			isa = PBXGroup;
 			children = (
 				B23126CC1FFC44AC0056AE4C /* ConvertViewController.swift */,
-				B2A829AC1FFEA1D00092C27A /* ViewsForEdmundinho.swift */,
 			);
 			path = "View Controllers";
 			sourceTree = "<group>";
@@ -153,7 +147,6 @@
 			files = (
 				B23126D51FFC44AC0056AE4C /* LaunchScreen.storyboard in Resources */,
 				B23126D21FFC44AC0056AE4C /* Assets.xcassets in Resources */,
-				B23126D01FFC44AC0056AE4C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -167,7 +160,6 @@
 				B23126E11FFC4D2A0056AE4C /* CurrencyValuesController.swift in Sources */,
 				B23126DD1FFC4B910056AE4C /* CurrencyValues.swift in Sources */,
 				B23127011FFD7B5A0056AE4C /* Helpers.swift in Sources */,
-				B2A829AD1FFEA1D00092C27A /* ViewsForEdmundinho.swift in Sources */,
 				B23126CD1FFC44AC0056AE4C /* ConvertViewController.swift in Sources */,
 				B23126CB1FFC44AC0056AE4C /* AppDelegate.swift in Sources */,
 			);
@@ -176,14 +168,6 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		B23126CE1FFC44AC0056AE4C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				B23126CF1FFC44AC0056AE4C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		B23126D31FFC44AC0056AE4C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
